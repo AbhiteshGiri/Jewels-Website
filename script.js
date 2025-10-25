@@ -34,3 +34,18 @@ function inquireWhatsApp(productName, category, material, price) {
     const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
     window.open(whatsappURL, '_blank');
 }
+
+
+$('#banner-carousel .owl-carousel').owlCarousel({
+  loop: true,
+  margin: 0,
+  nav: false,
+  dots: true,
+  responsive: {
+    0:    { items: 1 },
+    480:  { items: 1 },
+    768:  { items: 1 },
+    992:  { items: 1 },
+    1200: { items: 1 }
+  }
+});
