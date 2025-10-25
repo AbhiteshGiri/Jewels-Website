@@ -41,6 +41,9 @@ $('#banner-carousel .owl-carousel').owlCarousel({
   margin: 0,
   nav: false,
   dots: true,
+  autoplay: true,           // Enable autoplay
+  autoplayTimeout: 4000,    // Time between slides in milliseconds (4 seconds)
+  autoplayHoverPause: true, // Pause on hover
   responsive: {
     0:    { items: 1 },
     480:  { items: 1 },
