@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jewellery Boutique</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Owl Carousel CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/2.3.4/owl.theme.default.min.css"
+    />
+
+    <!-- Animate CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Bootstrap Icons CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+
+     <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-gem"></i>Shiv Shakti Jewellers | Collection
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="StorePage.html">Collection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-heart"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-cart3"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-login" href="signupLogin.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Carousel -->
+    <section id="banner-carousel" class="mt-5 pt-5">
+      <div class="owl-carousel owl-theme">
+        <div
+          class="item banner"
+          style="background-image: url('img/banner1.png')"
+        >
+          <div class="banner-text text-center">
+            <h1 class="animate__animated animate__fadeInDown">
+              Elegant Diamond Collection
+            </h1>
+            <p class="animate__animated animate__fadeInUp">
+              Discover Sparkling Designs for Every Occasion
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="item banner"
+          style="background-image: url('img/banner2.png')"
+        >
+          <div class="banner-text text-center">
+            <h1 class="animate__animated animate__fadeInDown">
+              Gold Jewellery Sets
+            </h1>
+            <p class="animate__animated animate__fadeInUp">
+              Classic Designs with a Modern Twist
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="item banner"
+          style="background-image: url('img/banner3.png')"
+        >
+          <div class="banner-text text-center">
+            <h1 class="animate__animated animate__fadeInDown">
+              Exlusive pearls Collection
+            </h1>
+            <p class="animate__animated animate__fadeInUp">
+              Aesthetic Designs with a Modern Twist
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Carousel -->
+    <section id="products" class="py-5 bg-light">
+      <div class="container text-center">
+        <h2 class="mb-4">Featured Jewellery</h2>
+        <div class="owl-carousel owl-theme">
+          <div class="item">
+            <img src="img/necklace.png" class="img-fluid" alt="Necklace" />
+          </div>
+          <div class="item">
+            <img src="img/bracelets.png" class="img-fluid" alt="Bracelet" />
+          </div>
+          <div class="item">
+            <img src="img/ring.png" class="img-fluid" alt="Ring" />
+          </div>
+          <div class="item">
+            <img src="img/earrings.png" class="img-fluid" alt="Earrings" />
+          </div>
+          <div class="item">
+            <img src="img/Anklets.png" class="img-fluid" alt="Anklets" />
+          </div>
+          <div class="item">
+            <img
+              src="img/Gemstone.png"
+              class="img-fluid"
+              alt="Gemstone Jewellery"
+            />
+          </div>
+          <div class="item">
+            <img
+              src="img/GoldPlated.png"
+              class="img-fluid"
+              alt="Gold Plated Jewellery"
+            />
+          </div>
+          <div class="item">
+            <img
+              src="img/weddingJewellery.png"
+              class="img-fluid"
+              alt="Wedding Jewellery"
+            />
+          </div>
+          <div class="item">
+            <img
+              src="img/MensJewellery.png"
+              class="img-fluid"
+              alt="Men's Jewellery"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bestselling Products -->
+    <section id="bestsellers" class="py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Bestselling Products</h2>
+          <p class="text-muted">Most loved by our customers</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0">
+              <img
+                src="img/Emeraldnecklace.png"
+                class="card-img-top"
+                alt="Emerald Necklace"
+              />
+              <div class="card-body text-center">
+                <h5 class="card-title">Emerald Necklace</h5>
+                <p class="card-text">₹12,999</p>
+                <a href="#" class="btn btn-outline-dark btn-sm">Buy Now</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0">
+              <img
+                src="img/GoldRing.png"
+                class="card-img-top"
+                alt="Gold Ring"
+              />
+              <div class="card-body text-center">
+                <h5 class="card-title">Gold Ring</h5>
+                <p class="card-text">₹8,499</p>
+                <a href="#" class="btn btn-outline-dark btn-sm">Buy Now</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0">
+              <img
+                src="img/DiamondEarring.png"
+                class="card-img-top"
+                alt="Diamond Earrings"
+              />
+              <div class="card-body text-center">
+                <h5 class="card-title">Diamond Earrings</h5>
+                <p class="card-text">₹15,250</p>
+                <a href="#" class="btn btn-outline-dark btn-sm">Buy Now</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0">
+              <img
+                src="img/SilverBracelets.png"
+                class="card-img-top"
+                alt="Silver Bracelet"
+              />
+              <div class="card-body text-center">
+                <h5 class="card-title">Silver Bracelet</h5>
+                <p class="card-text">₹5,999</p>
+                <a href="#" class="btn btn-outline-dark btn-sm">Buy Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blogs" class="py-5 bg-light">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Latest From Our Blog</h2>
+          <p class="text-muted">Style tips and jewellery trends</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <img
+                src="img/Jewellerycare.jpg"
+                class="card-img-top"
+                alt="Jewellery Care"
+              />
+              <div class="card-body">
+                <h5 class="card-title">How to Care for Your Jewellery</h5>
+                <p class="card-text">
+                  Keep your jewels shining and safe with these expert care tips.
+                </p>
+                <a href="#" class="text-dark">Read More →</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <img
+                src="img/GoldVsDiamond.png"
+                class="card-img-top"
+                alt="Gold vs Diamond"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Gold vs. Diamond: Which Suits You?</h5>
+                <p class="card-text">
+                  Discover which piece fits your personality and style best.
+                </p>
+                <a href="#" class="text-dark">Read More →</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <img
+                src="img/jewelsTrends.jpg"
+                class="card-img-top"
+                alt="Festival Trends"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Top Jewellery Trends for 2025</h5>
+                <p class="card-text">
+                  Explore sparkling designs that are making headlines this
+                  season.
+                </p>
+                <a href="#" class="text-dark">Read More →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social media Section -->
+    <section id="instagram" class="py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold">Follow Us On Social Media</h2>
+          <p class="text-muted">See our latest jewellery styles</p>
+        </div>
+        <div class="row g-3">
+          <div class="col-6 col-md-3">
+            <a href="https://wa.me/yourphonenumber" target="_blank">
+              <img src="img/whatsapp.gif" class="img-fluid" alt="WhatsApp" />
+            </a>
+          </div>
+          <div class="col-6 col-md-3">
+            <a href="https://instagram.com/yourhandle" target="_blank">
+              <img src="img/instagram.gif" class="img-fluid" alt="Instagram" />
+            </a>
+          </div>
+          <div class="col-6 col-md-3">
+            <a href="https://facebook.com/yourpage" target="_blank">
+              <img src="img/facebook.gif" class="img-fluid" alt="Facebook" />
+            </a>
+          </div>
+          <div class="col-6 col-md-3">
+            <a href="https://twitter.com/yourhandle" target="_blank">
+              <img src="img/twitter.gif" class="img-fluid" alt="Twitter" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscribe Section -->
+    <section id="subscribe" class="py-5 bg-dark text-white">
+      <div class="container text-center">
+        <h2 class="fw-bold mb-3">Subscribe to Our Newsletter</h2>
+        <p>Get the latest updates on jewellery, trends and offers.</p>
+        <form class="row g-3 justify-content-center mt-3" id="subscribeForm">
+          <div class="col-auto">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-outline-light">
+              Subscribe
+            </button>
+          </div>
+        </form>
+        <div id="subscribeMessage" class="mt-3"></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+      <div class="container text-center">
+        <p>&copy; 2025 Jewellery Boutique. All rights reserved.</p>
+        <p>
+          Follow us:
+          <i class="bi bi-instagram"></i>
+          <a href="#" class="text-light text-decoration-none ms-2">Instagram</a>
+          |
+          <i class="bi bi-facebook"></i>
+          <a href="#" class="text-light text-decoration-none ms-2">Facebook</a>
+          |
+          <i class="bi bi-twitter"></i>
+          <a href="#" class="text-light text-decoration-none ms-2">Twitter</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919876543210?text=Hi%20*Shiv%20Shakti%20Jewellers*!%20👋%0A%0AI%20would%20like%20to%20inquire%20about%20your%20jewellery%20collection." 
+       class="whatsapp-float" 
+       target="_blank"
+       title="Chat with us on WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+  </body>
+</html>

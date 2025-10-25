@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Collection - Jewellery Store</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f8f9fa;
+      }
+
+      /* Navbar */
+      .navbar {
+        background: #1a1a1a !important;
+        padding: 15px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #d4af37 !important;
+      }
+
+      .navbar-brand i {
+        margin-right: 8px;
+      }
+
+      .nav-link {
+        color: #fff !important;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: #d4af37 !important;
+      }
+
+      .navbar .btn-login {
+        background: #d4af37;
+        color: #1a1a1a;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .navbar .btn-login:hover {
+        background: #c9a62e;
+        transform: translateY(-2px);
+      }
+
+      /* Page Header */
+      .page-header {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: #d4af37;
+        padding: 60px 0 40px;
+        text-align: center;
+      }
+
+      .page-header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .page-header p {
+        font-size: 1.2rem;
+        color: #fff;
+        opacity: 0.9;
+      }
+
+      /* Filter Section */
+      .filter-section {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+        position: sticky;
+        top: 20px;
+      }
+
+      .filter-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .filter-group {
+        margin-bottom: 25px;
+      }
+
+      .filter-group h5 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .filter-option {
+        margin-bottom: 10px;
+      }
+
+      .filter-option input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+        cursor: pointer;
+        accent-color: #d4af37;
+      }
+
+      .filter-option label {
+        cursor: pointer;
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      .filter-option input[type="checkbox"]:checked + label {
+        color: #1a1a1a;
+        font-weight: 600;
+      }
+
+      .price-range {
+        margin-top: 15px;
+      }
+
+      .price-inputs {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .price-inputs input {
+        flex: 1;
+        padding: 8px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 0.9rem;
+      }
+
+      .btn-apply-filter,
+      .btn-clear-filter {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-apply-filter {
+        background: #d4af37;
+        color: #1a1a1a;
+        border: none;
+      }
+
+      .btn-apply-filter:hover {
+        background: #c9a62e;
+        transform: translateY(-2px);
+      }
+
+      .btn-clear-filter {
+        background: white;
+        color: #666;
+        border: 2px solid #e0e0e0;
+      }
+
+      .btn-clear-filter:hover {
+        border-color: #d4af37;
+        color: #d4af37;
+      }
+
+      /* Products Section */
+      .products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .products-count {
+        font-size: 1.1rem;
+        color: #666;
+      }
+
+      .sort-dropdown select {
+        padding: 10px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        background: white;
+        cursor: pointer;
+        font-size: 0.95rem;
+      }
+
+      /* Product Card */
+      .product-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .product-image {
+        position: relative;
+        width: 100%;
+        height: 280px;
+        overflow: hidden;
+        background: #f8f9fa;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .product-card:hover .product-image img {
+        transform: scale(1.1);
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #d4af37;
+        color: #1a1a1a;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .product-actions {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .product-card:hover .product-actions {
+        opacity: 1;
+      }
+
+      .action-btn {
+        background: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .action-btn:hover {
+        background: #d4af37;
+        color: white;
+        transform: scale(1.1);
+      }
+
+      .product-info {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-category {
+        font-size: 0.85rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+
+      .product-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+      }
+
+      .product-rating {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 10px;
+      }
+
+      .product-rating i {
+        color: #d4af37;
+        font-size: 0.9rem;
+      }
+
+      .product-rating span {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .product-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #d4af37;
+        margin-top: auto;
+        margin-bottom: 15px;
+      }
+
+      .btn-add-cart {
+        background: #1a1a1a;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .btn-add-cart:hover {
+        background: #d4af37;
+        color: #1a1a1a;
+        transform: translateY(-2px);
+      }
+
+      .no-products {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+      }
+
+      .no-products i {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        opacity: 0.3;
+      }
+
+      .no-products h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .page-header h1 {
+          font-size: 2rem;
+        }
+
+        .filter-section {
+          position: relative;
+          top: 0;
+        }
+
+        .products-header {
+          flex-direction: column;
+          gap: 15px;
+          align-items: flex-start;
+        }
+      }
+
+      /* Floating WhatsApp Button */
+      .whatsapp-float {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #25d366;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        z-index: 1000;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .whatsapp-float:hover {
+        background: #20ba5a;
+        transform: scale(1.1);
+        box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+      }
+
+      .whatsapp-float i {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .whatsapp-float {
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <i class="bi bi-gem"></i>Shiv Shakti Jewellers | Collection
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="StorePage.html">Collection</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="bi bi-heart"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="bi bi-cart3"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-login" href="signupLogin.html">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Our Collection</h1>
+        <p>Discover our exquisite range of premium jewellery</p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <!-- Filter Sidebar -->
+          <div class="col-lg-3">
+            <div class="filter-section">
+              <div class="filter-title">
+                <i class="bi bi-funnel"></i>
+                Filters
+              </div>
+
+              <!-- Category Filter -->
+              <div class="filter-group">
+                <h5>Category</h5>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="cat-necklace"
+                    value="Necklaces"
+                    class="category-filter"
+                  />
+                  <label for="cat-necklace">Necklaces</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="cat-ring"
+                    value="Rings"
+                    class="category-filter"
+                  />
+                  <label for="cat-ring">Rings</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="cat-earring"
+                    value="Earrings"
+                    class="category-filter"
+                  />
+                  <label for="cat-earring">Earrings</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="cat-bracelet"
+                    value="Bracelets"
+                    class="category-filter"
+                  />
+                  <label for="cat-bracelet">Bracelets</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="cat-anklet"
+                    value="Anklets"
+                    class="category-filter"
+                  />
+                  <label for="cat-anklet">Anklets</label>
+                </div>
+              </div>
+
+              <!-- Material Filter -->
+              <div class="filter-group">
+                <h5>Material</h5>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="mat-gold"
+                    value="Gold"
+                    class="material-filter"
+                  />
+                  <label for="mat-gold">Gold</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="mat-silver"
+                    value="Silver"
+                    class="material-filter"
+                  />
+                  <label for="mat-silver">Silver</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="mat-diamond"
+                    value="Diamond"
+                    class="material-filter"
+                  />
+                  <label for="mat-diamond">Diamond</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="mat-platinum"
+                    value="Platinum"
+                    class="material-filter"
+                  />
+                  <label for="mat-platinum">Platinum</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="mat-gemstone"
+                    value="Gemstone"
+                    class="material-filter"
+                  />
+                  <label for="mat-gemstone">Gemstone</label>
+                </div>
+              </div>
+
+              <!-- Price Range -->
+              <div class="filter-group">
+                <h5>Price Range</h5>
+                <div class="price-inputs">
+                  <input
+                    type="number"
+                    id="minPrice"
+                    placeholder="Min"
+                    value="0"
+                  />
+                  <input
+                    type="number"
+                    id="maxPrice"
+                    placeholder="Max"
+                    value="100000"
+                  />
+                </div>
+              </div>
+
+              <!-- Gender Filter -->
+              <div class="filter-group">
+                <h5>Gender</h5>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="gen-women"
+                    value="Women"
+                    class="gender-filter"
+                  />
+                  <label for="gen-women">Women</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="gen-men"
+                    value="Men"
+                    class="gender-filter"
+                  />
+                  <label for="gen-men">Men</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    id="gen-unisex"
+                    value="Unisex"
+                    class="gender-filter"
+                  />
+                  <label for="gen-unisex">Unisex</label>
+                </div>
+              </div>
+
+              <button class="btn-apply-filter" onclick="applyFilters()">
+                Apply Filters
+              </button>
+              <button class="btn-clear-filter" onclick="clearFilters()">
+                Clear All
+              </button>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="col-lg-9">
+            <div class="products-header">
+              <div class="products-count">
+                Showing <strong id="productCount">24</strong> products
+              </div>
+              <div class="sort-dropdown">
+                <select id="sortSelect" onchange="sortProducts()">
+                  <option value="default">Sort by: Default</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="name-az">Name: A to Z</option>
+                  <option value="rating">Rating: High to Low</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row" id="productsContainer">
+              <!-- Products will be dynamically loaded here -->
+            </div>
+
+            <div id="noProducts" class="no-products" style="display: none">
+              <i class="bi bi-inbox"></i>
+              <h3>No products found</h3>
+              <p>Try adjusting your filters</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Sample Products Data
+      const allProducts = [
+        {
+          id: 1,
+          name: "Diamond Solitaire Ring",
+          category: "Rings",
+          material: "Diamond",
+          price: 45000,
+          rating: 4.8,
+          reviews: 156,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop",
+          badge: "Bestseller",
+        },
+        {
+          id: 2,
+          name: "Gold Chain Necklace",
+          category: "Necklaces",
+          material: "Gold",
+          price: 32000,
+          rating: 4.6,
+          reviews: 203,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 3,
+          name: "Silver Hoop Earrings",
+          category: "Earrings",
+          material: "Silver",
+          price: 5500,
+          rating: 4.5,
+          reviews: 89,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
+          badge: "New",
+        },
+        {
+          id: 4,
+          name: "Platinum Wedding Band",
+          category: "Rings",
+          material: "Platinum",
+          price: 55000,
+          rating: 4.9,
+          reviews: 234,
+          gender: "Unisex",
+          image:
+            "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 5,
+          name: "Emerald Pendant Necklace",
+          category: "Necklaces",
+          material: "Gemstone",
+          price: 38000,
+          rating: 4.7,
+          reviews: 145,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop",
+          badge: "Bestseller",
+        },
+        {
+          id: 6,
+          name: "Gold Bangle Bracelet",
+          category: "Bracelets",
+          material: "Gold",
+          price: 28000,
+          rating: 4.6,
+          reviews: 178,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 7,
+          name: "Diamond Stud Earrings",
+          category: "Earrings",
+          material: "Diamond",
+          price: 42000,
+          rating: 4.8,
+          reviews: 267,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=400&h=400&fit=crop",
+          badge: "Bestseller",
+        },
+        {
+          id: 8,
+          name: "Silver Anklet Chain",
+          category: "Anklets",
+          material: "Silver",
+          price: 4500,
+          rating: 4.4,
+          reviews: 92,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop",
+          badge: "New",
+        },
+        {
+          id: 9,
+          name: "Men's Gold Ring",
+          category: "Rings",
+          material: "Gold",
+          price: 35000,
+          rating: 4.7,
+          reviews: 123,
+          gender: "Men",
+          image:
+            "https://images.unsplash.com/photo-1603561596112-0a132b757442?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 10,
+          name: "Ruby Gemstone Necklace",
+          category: "Necklaces",
+          material: "Gemstone",
+          price: 48000,
+          rating: 4.9,
+          reviews: 198,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=400&fit=crop",
+          badge: "Bestseller",
+        },
+        {
+          id: 11,
+          name: "Diamond Tennis Bracelet",
+          category: "Bracelets",
+          material: "Diamond",
+          price: 62000,
+          rating: 4.9,
+          reviews: 312,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=400&fit=crop",
+          badge: "Premium",
+        },
+        {
+          id: 12,
+          name: "Gold Drop Earrings",
+          category: "Earrings",
+          material: "Gold",
+          price: 18000,
+          rating: 4.5,
+          reviews: 156,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 13,
+          name: "Silver Chain Bracelet",
+          category: "Bracelets",
+          material: "Silver",
+          price: 8500,
+          rating: 4.4,
+          reviews: 87,
+          gender: "Unisex",
+          image:
+            "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
+          badge: "New",
+        },
+        {
+          id: 14,
+          name: "Sapphire Ring",
+          category: "Rings",
+          material: "Gemstone",
+          price: 52000,
+          rating: 4.8,
+          reviews: 201,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 15,
+          name: "Pearl Necklace Set",
+          category: "Necklaces",
+          material: "Gemstone",
+          price: 25000,
+          rating: 4.6,
+          reviews: 134,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop",
+          badge: "Bestseller",
+        },
+        {
+          id: 16,
+          name: "Men's Silver Chain",
+          category: "Necklaces",
+          material: "Silver",
+          price: 12000,
+          rating: 4.5,
+          reviews: 98,
+          gender: "Men",
+          image:
+            "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 17,
+          name: "Gold Anklet",
+          category: "Anklets",
+          material: "Gold",
+          price: 15000,
+          rating: 4.6,
+          reviews: 76,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop",
+          badge: "New",
+        },
+        {
+          id: 18,
+          name: "Diamond Halo Ring",
+          category: "Rings",
+          material: "Diamond",
+          price: 68000,
+          rating: 4.9,
+          reviews: 289,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
+          badge: "Premium",
+        },
+        {
+          id: 19,
+          name: "Gold Charm Bracelet",
+          category: "Bracelets",
+          material: "Gold",
+          price: 22000,
+          rating: 4.7,
+          reviews: 167,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 20,
+          name: "Silver Stud Earrings",
+          category: "Earrings",
+          material: "Silver",
+          price: 3500,
+          rating: 4.3,
+          reviews: 92,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 21,
+          name: "Platinum Necklace",
+          category: "Necklaces",
+          material: "Platinum",
+          price: 72000,
+          rating: 4.9,
+          reviews: 178,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=400&fit=crop",
+          badge: "Premium",
+        },
+        {
+          id: 22,
+          name: "Diamond Bracelet",
+          category: "Bracelets",
+          material: "Diamond",
+          price: 58000,
+          rating: 4.8,
+          reviews: 245,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
+          badge: "Bestseller",
+        },
+        {
+          id: 23,
+          name: "Gold Hoops",
+          category: "Earrings",
+          material: "Gold",
+          price: 14000,
+          rating: 4.6,
+          reviews: 134,
+          gender: "Women",
+          image:
+            "https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=400&h=400&fit=crop",
+          badge: "",
+        },
+        {
+          id: 24,
+          name: "Men's Platinum Ring",
+          category: "Rings",
+          material: "Platinum",
+          price: 48000,
+          rating: 4.7,
+          reviews: 156,
+          gender: "Men",
+          image:
+            "https://images.unsplash.com/photo-1603561596112-0a132b757442?w=400&h=400&fit=crop",
+          badge: "New",
+        },
+      ];
+
+      let displayedProducts = [...allProducts];
+
+      // Load products on page load
+      window.onload = function () {
+        displayProducts(displayedProducts);
+      };
+
+      // Display products
+      function displayProducts(products) {
+        const container = document.getElementById("productsContainer");
+        const noProductsDiv = document.getElementById("noProducts");
+        const productCount = document.getElementById("productCount");
+
+        if (products.length === 0) {
+          container.innerHTML = "";
+          noProductsDiv.style.display = "block";
+          productCount.textContent = "0";
+          return;
+        }
+
+        noProductsDiv.style.display = "none";
+        productCount.textContent = products.length;
+
+        container.innerHTML = products
+          .map(
+            (product) => `
+                <div class="col-md-6 col-lg-4">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}">
+                            ${
+                              product.badge
+                                ? `<span class="product-badge">${product.badge}</span>`
+                                : ""
+                            }
+                            <div class="product-actions">
+                                <button class="action-btn" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Quick View">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">${
+                              product.category
+                            } • ${product.material}</div>
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-rating">
+                                ${getStarRating(product.rating)}
+                                <span>(${product.reviews})</span>
+                            </div>
+                            <div class="product-price">₹${product.price.toLocaleString()}</div>
+                            <button class="btn-add-cart" onclick="inquireWhatsApp('${
+                              product.name
+                            }', '${product.category}', '${product.material}', ${
+              product.price
+            })">
+    <i class="bi bi-whatsapp"></i>
+    Inquire on WhatsApp
+</button>
+                        </div>
+                    </div>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      // Generate star rating
+      function getStarRating(rating) {
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 !== 0;
+        let stars = "";
+
+        for (let i = 0; i < fullStars; i++) {
+          stars += '<i class="bi bi-star-fill"></i>';
+        }
+        if (hasHalfStar) {
+          stars += '<i class="bi bi-star-half"></i>';
+        }
+        const emptyStars = 5 - Math.ceil(rating);
+        for (let i = 0; i < emptyStars; i++) {
+          stars += '<i class="bi bi-star"></i>';
+        }
+        return stars;
+      }
+
+      // Apply filters
+      function applyFilters() {
+        const selectedCategories = Array.from(
+          document.querySelectorAll(".category-filter:checked")
+        ).map((cb) => cb.value);
+        const selectedMaterials = Array.from(
+          document.querySelectorAll(".material-filter:checked")
+        ).map((cb) => cb.value);
+        const selectedGenders = Array.from(
+          document.querySelectorAll(".gender-filter:checked")
+        ).map((cb) => cb.value);
+        const minPrice =
+          parseInt(document.getElementById("minPrice").value) || 0;
+        const maxPrice =
+          parseInt(document.getElementById("maxPrice").value) || 1000000;
+
+        displayedProducts = allProducts.filter((product) => {
+          const categoryMatch =
+            selectedCategories.length === 0 ||
+            selectedCategories.includes(product.category);
+          const materialMatch =
+            selectedMaterials.length === 0 ||
+            selectedMaterials.includes(product.material);
+          const genderMatch =
+            selectedGenders.length === 0 ||
+            selectedGenders.includes(product.gender);
+          const priceMatch =
+            product.price >= minPrice && product.price <= maxPrice;
+
+          return categoryMatch && materialMatch && genderMatch && priceMatch;
+        });
+
+        displayProducts(displayedProducts);
+      }
+
+      // Clear all filters
+      function clearFilters() {
+        document
+          .querySelectorAll('input[type="checkbox"]')
+          .forEach((cb) => (cb.checked = false));
+        document.getElementById("minPrice").value = "0";
+        document.getElementById("maxPrice").value = "100000";
+        displayedProducts = [...allProducts];
+        displayProducts(displayedProducts);
+      }
+
+      // Sort products
+      function sortProducts() {
+        const sortValue = document.getElementById("sortSelect").value;
+
+        switch (sortValue) {
+          case "price-low":
+            displayedProducts.sort((a, b) => a.price - b.price);
+            break;
+          case "price-high":
+            displayedProducts.sort((a, b) => b.price - a.price);
+            break;
+          case "name-az":
+            displayedProducts.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+          case "rating":
+            displayedProducts.sort((a, b) => b.rating - a.rating);
+            break;
+          default:
+            displayedProducts = [...allProducts];
+        }
+
+        displayProducts(displayedProducts);
+      }
+
+      // Real-time filter application
+      document
+        .querySelectorAll(".category-filter, .material-filter, .gender-filter")
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", applyFilters);
+        });
+
+      document
+        .getElementById("minPrice")
+        .addEventListener("input", applyFilters);
+      document
+        .getElementById("maxPrice")
+        .addEventListener("input", applyFilters);
+    </script>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919876543210?text=Hi%20*Shiv%20Shakti%20Jewellers*!%20👋%0A%0AI%20would%20like%20to%20inquire%20about%20your%20jewellery%20collection." 
+       class="whatsapp-float" 
+       target="_blank"
+       title="Chat with us on WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+    <script>
+// Replace with your actual WhatsApp business number (country code + number, no spaces or +)
+const WHATSAPP_NUMBER = '919555319530'; // Example: 91 for India + 10-digit number
+
+function inquireWhatsApp(productName, category, material, price) {
+    // Create formatted message for WhatsApp
+    const message = `Hi! I'm interested in:%0A%0A` +
+                   `Product: ${productName}%0A` +
+                   `Category: ${category}%0A` +
+                   `Material: ${material}%0A` +
+                   `Price: ₹${price.toLocaleString()}%0A%0A` +
+                   `I would like to know more details.`;
+    
+    // Open WhatsApp in new tab
+    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+    window.open(whatsappURL, '_blank');
+}
+</script>
+  </body>
+</html>
