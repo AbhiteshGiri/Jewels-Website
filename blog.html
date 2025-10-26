@@ -44,13 +44,34 @@
       color: #d4af37 !important;
     }
 
-    .page-header {
+    /* .page-header {
       background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      
       color: #d4af37;
       padding: 70px 0;
       text-align: center;
       margin-bottom: 40px;
-    }
+    } */
+
+   .page-header {
+  background: url('https://user-gen-media-assets.s3.amazonaws.com/seedream_images/c3053e55-0993-4d34-a451-49bddbb920be.png') center center no-repeat;
+  background-size: cover;
+  color: #d4af37;
+  padding: 70px 0;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header .container {
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    rgba(84, 82, 82, 0.4) 0%,
+    rgba(68, 65, 65, 0.4) 100%
+  );
+  padding: 20px 40px;
+  border-radius: 15px;
+}
 
     .page-header h1 {
       font-size: 2.8rem;
@@ -60,6 +81,7 @@
 
     .page-header p {
       font-size: 1.1rem;
+      font-weight: 900;
       color: #fff;
       opacity: 0.8;
     }
