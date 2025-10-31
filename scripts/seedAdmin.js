@@ -6,7 +6,7 @@ const Admin = require('../models/Admin.model');
 const bcrypt = require('bcrypt');
 
 async function seed() {
-  await connectDB("mongodb+srv://abhitesh:Abhitesh@cluster0.oja8fmy.mongodb.net/jewelry");
+  await connectDB("mongodb://localhost:27017/jewelry");
   const email = process.env.ADMIN_EMAIL || "anujbca2022@gmail.com";
   const pass = process.env.ADMIN_PASS || "123456";
   if (!email || !pass) {
