@@ -352,7 +352,7 @@ exports.signupRequest = async (req, res) => {
 
     // create and store OTP
     const otp = await createTempOtp({ email, type: 'signup', payload });
-
+    console.log(otp)
     // send OTP email using HTML template
     try {
       await sendHtmlMail(email, 'Verify your email - Shiv Shakti Jewellers', signupOtpHtml(otp));
