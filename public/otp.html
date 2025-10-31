@@ -200,8 +200,8 @@
       // Select endpoint based on OTP type
       const endpoint =
         type === "signup"
-          ? "https://jewels-website.onrender.com//api/auth/signup/verify"
-          : "https://jewels-website.onrender.com//api/auth/login/verify";
+          ? "https://jewels-website.onrender.com/api/auth/signup/verify"
+          : "https://jewels-website.onrender.com/api/auth/login/verify";
 
       const response = await fetch(endpoint, {
         method: "POST",

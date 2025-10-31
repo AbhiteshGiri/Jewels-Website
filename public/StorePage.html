@@ -819,7 +819,7 @@
     authBtn.addEventListener("click", async () => {
 
       // ✅ Call backend logout
-      await fetch("https://jewels-website.onrender.com//api/auth/logout", {
+      await fetch("https://jewels-website.onrender.com/api/auth/logout", {
         method: "POST",
         credentials: "include"
       });
@@ -1159,7 +1159,7 @@ let displayedProducts = [];
 
 window.onload = async function () {
   try {
-    const result = await fetch('https://jewels-website.onrender.com//product');
+    const result = await fetch('https://jewels-website.onrender.com/product');
     const data = await result.json();
 
     if (data && Array.isArray(data.products)) {

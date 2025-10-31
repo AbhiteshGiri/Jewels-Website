@@ -635,7 +635,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
   console.log(formData)
 
   try {
-    const res = await fetch("https://jewels-website.onrender.com//api/contact", {
+    const res = await fetch("https://jewels-website.onrender.com/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

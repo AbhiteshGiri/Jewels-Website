@@ -565,7 +565,7 @@ if (token) {
 // ✅ Corrected: Added missing "//" in URL and proper fetch return
 async function fetchPost() {
   try {
-    const result = await fetch("https://jewels-website.onrender.com//api/posts");
+    const result = await fetch("https://jewels-website.onrender.com/api/posts");
     return await result.json();
   } catch (err) {
     console.error("Fetch error:", err);
@@ -577,7 +577,7 @@ document.addEventListener('click', async (e) => {
   if (e.target.classList.contains('btn-read-more')) {
     const postId = e.target.getAttribute('data-id');
     try {
-      const res = await fetch(`https://jewels-website.onrender.com//api/posts/views/${postId}`, {
+      const res = await fetch(`https://jewels-website.onrender.com/api/posts/views/${postId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
       });
