@@ -8,7 +8,8 @@
 [![Node.js](https://img.shields.io/badge/Node.js-v18+-green.svg)](https://nodejs.org)
 [![MongoDB](https://img.shields.io/badge/MongoDB-v6.0+-brightgreen.svg)](https://mongodb.com)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-v5.3-blueviolet.svg)](https://getbootstrap.com)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](LICENSE)
+
 
 **A modern, elegant jewellery showcase website designed to beautifully present exclusive collections with seamless navigation, advanced filters, and personalized customer engagement.**
 
