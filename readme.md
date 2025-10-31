@@ -385,7 +385,7 @@ shiv-shakti-jewellers/
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/abhiteshgiri)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/abhitesh-giri-3924a3245/)
 [![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](https://abhiteshgiri.github.io/portfolio/)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:abhiteshgiri325@gmail.com)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRrkzVhWhqTRhkhSKdFSnxVZLqwgNlxkPpkQXVtPqdsqbXNpQWFvpKLTZdgHpKZVxndDXDB)
 
 </div>
 
