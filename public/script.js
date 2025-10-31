@@ -52,3 +52,32 @@ $('#banner-carousel .owl-carousel').owlCarousel({
     1200: { items: 1 }
   }
 });
+
+   function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+  const authBtn = document.getElementById("auth-btn");
+  const token = localStorage.getItem("authToken") || getCookie("token");
+  console.log(getCookie("token"))
+
+  if (token) {
+    authBtn.textContent = "Logout";
+    authBtn.href = "#";
+    authBtn.addEventListener("click", async () => {
+
+      // ✅ Call backend logout
+      await fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        credentials: "include"
+      });
+
+      // ✅ Clear frontend token also
+      localStorage.removeItem("authToken");
+
+      alert("Logged out successfully!");
+      window.location.reload();
+    });
+  }

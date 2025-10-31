@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Profile - Shiv Shakti Jewels</title>
+    <style>
+      body {
+        background-color: #121212;
+        color: #d4af37;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
+
+      .profile-container {
+        background: #1c1c1c;
+        border: 2px solid #d4af37;
+        margin: 40px auto;
+        padding: 30px 35px 25px 35px;
+        border-radius: 18px;
+        box-shadow: 0 0 20px #d4af3760;
+        max-width: 420px;
+        text-align: center;
+      }
+
+      .profile-header {
+        margin-bottom: 18px;
+        font-size: 2em;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #f0d98c;
+        text-transform: uppercase;
+      }
+
+      .profile-pic {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid #d4af37;
+        background: url("https://i.imgur.com/iQbQnKz.png") center/cover;
+        margin: 0 auto 15px auto;
+      }
+
+      .profile-info {
+        margin-bottom: 25px;
+        text-align: left;
+        color: #ffd700;
+        font-size: 1.05em;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #d4af37;
+        font-weight: 600;
+        font-size: 1em;
+      }
+
+      input[type="text"],
+      input[type="email"] {
+        width: 100%;
+        padding: 11px 13px;
+        border: 1.5px solid #d4af37;
+        border-radius: 9px;
+        background-color: #181818;
+        color: #d4af37;
+        margin-bottom: 20px;
+        font-size: 1em;
+        transition: border-color 0.3s;
+        outline: none;
+      }
+      input[type="text"]:focus,
+      input[type="email"]:focus {
+        border-color: #f0d98c;
+        box-shadow: 0 0 10px #f0d98c75;
+      }
+
+      button {
+        background-color: #d4af37;
+        border: none;
+        padding: 12px 0;
+        width: 100%;
+        font-size: 1.15em;
+        font-weight: 700;
+        color: #121212;
+        border-radius: 8px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #f0d98c;
+        color: #1a1a11;
+      }
+
+      .message {
+        color: #f0d98c;
+        margin-top: 15px;
+        font-weight: 500;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="profile-container">
+      <div class="profile-header">My Profile</div>
+      <img
+        id="profilePic"
+        class="profile-pic"
+        src="http://localhost:5000/uploads/profile/default.jpg"
+        alt="Profile Picture"
+      />
+
+      <form id="profileForm">
+        <div class="profile-info">
+          <label for="userName">Name</label>
+          <input
+            type="text"
+            id="userName"
+            name="userName"
+            value="Riya Sharma"
+            required
+          />
+
+          <label for="userEmail">Email</label>
+          <input
+            type="email"
+            id="userEmail"
+            name="userEmail"
+            value="riya.sharma@email.com"
+            required
+          />
+
+          <label for="userMobile">Mobile</label>
+          <input
+            type="text"
+            id="userMobile"
+            name="userMobile"
+            value="+91-9765432101"
+            required
+          />
+        </div>
+        <button type="submit">Update Profile</button>
+        <div class="message" id="message"></div>
+      </form>
+    </div>
+    <script>
+  const token = localStorage.getItem("token"); // assuming you store JWT token here
+  const API_BASE_URL = "http://localhost:5000/api"; // change to your live or devtunnel URL
+
+  const profileForm = document.getElementById("profileForm");
+  const messageEl = document.getElementById("message");
+
+  // Load profile data when page loads
+  async function loadProfile() {
+    try {
+      const res = await fetch(`${API_BASE_URL}/user/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        document.getElementById("userName").value = data.user.name || "";
+        document.getElementById("userEmail").value = data.user.email || "";
+        document.getElementById("userMobile").value = data.user.mobile || "";
+
+        // ✅ Dynamically set profile picture
+        const profilePic = document.getElementById("profilePic");
+        if (data.user.image) {
+          const imgUrl = data.user.image.trim(); // 🔧 ensure no accidental spaces
+
+          if (imgUrl.startsWith("https://lh3.googleusercontent.com/")) {
+            // Google image (works fine)
+            profilePic.src = imgUrl.replace("=s96-c", "=s400-c");
+          } 
+          // 🔧 Fix: if it's already a full URL (e.g., http://localhost:5000/uploads/...)
+          else if (imgUrl.startsWith("http://") || imgUrl.startsWith("https://")) {
+            profilePic.src = imgUrl;
+          }
+          else if (imgUrl.startsWith("/uploads/")) {
+            // Image path already includes /uploads/
+            profilePic.src = `${API_BASE_URL.replace("/api", "")}${imgUrl}`;
+          } else {
+            // Fallback in case database only stores filename
+            profilePic.src = `${API_BASE_URL.replace(
+              "/api",
+              ""
+            )}/uploads/profile/${imgUrl}`;
+          }
+        } else {
+          // Default avatar
+          profilePic.src = "../uploads/profile/default.jpg";
+        }
+      } else {
+        messageEl.textContent = data.message || "Failed to load profile";
+        messageEl.style.color = "#ff6666";
+      }
+    } catch (err) {
+      console.error("Profile Fetch Error:", err);
+      messageEl.textContent = "Error fetching profile";
+      messageEl.style.color = "#ff6666";
+    }
+  }
+
+  // Update profile handler
+  profileForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const updates = {
+      name: document.getElementById("userName").value,
+      email: document.getElementById("userEmail").value,
+      mobile: document.getElementById("userMobile").value,
+    };
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/user/profile`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updates),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        messageEl.textContent = "Profile updated successfully!";
+        messageEl.style.color = "#a8ff60";
+      } else {
+        messageEl.textContent = data.message || "Update failed";
+        messageEl.style.color = "#ff6666";
+      }
+    } catch (err) {
+      console.error("Profile Update Error:", err);
+      messageEl.textContent = "Error updating profile";
+      messageEl.style.color = "#ff6666";
+    }
+  });
+
+  // Initialize
+  loadProfile();
+</script>
+
+  </body>
+</html>

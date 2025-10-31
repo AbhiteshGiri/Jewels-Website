@@ -14,8 +14,23 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+
+    <!-- Owl Carousel CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
     <!-- Page Icon -->
-    <link rel="icon" href="img/gem.svg">
+    <link rel="icon" href="img/gem.svg" />
+    <!-- jQuery (must be first) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <style>
       * {
         margin: 0;
@@ -454,80 +469,88 @@
       }
 
       .banner {
-  min-height: 320px;
-  height: 60vh;
-  max-height: 410px;
-  background-size: cover !important;
-  background-position: center !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: relative !important;
-  color: white !important;
-  overflow: hidden;
-}
+        min-height: 320px;
+        height: 60vh;
+        max-height: 410px;
+        background-size: cover !important;
+        background-position: center !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+        color: white !important;
+        overflow: hidden;
+      }
 
-.banner-text {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 90vw !important;
-  max-width: 600px !important;
-  text-align: center !important;
-  z-index: 2 !important;
-  padding: 0 10px !important;
-}
+      .banner-text {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+        max-width: 600px !important;
+        text-align: center !important;
+        z-index: 2 !important;
+        padding: 0 10px !important;
+      }
 
-@media (max-width: 768px) {
-  .banner {
-    min-height: 180px !important;
-    height: 35vh !important;
-    max-height: 260px !important;
-  }
-  .banner-text h1 {
-    font-size: 1.3rem !important;
-  }
-  .banner-text p {
-    font-size: 1rem !important;
-  }
-}
-
+      @media (max-width: 768px) {
+        .banner {
+          min-height: 180px !important;
+          height: 35vh !important;
+          max-height: 260px !important;
+        }
+        .banner-text h1 {
+          font-size: 1.3rem !important;
+        }
+        .banner-text p {
+          font-size: 1rem !important;
+        }
+      }
     </style>
   </head>
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-gem"></i>Shiv Shakti Jewellers
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="StorePage.html">Collection</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-heart"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog.html"><i class="bi bi-substack"></i>Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-login" href="signupLogin.html">Login</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <i class="bi bi-gem"></i>Shiv Shakti Jewellers
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="StorePage.html">Collection</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="bi bi-heart"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html"
+                ><i class="bi bi-substack"></i>Blog</a
+              >
+            </li>
+            <li class="nav-item">
+              <a id="auth-btn" class="btn btn-login" href="signupLogin.html"
+                >Login</a
+              >
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <!-- Page Header -->
@@ -741,332 +764,418 @@
       </div>
     </section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Floating WhatsApp Button -->
+    <a
+      href="https://wa.me/919876543210?text=Hi%20*Shiv%20Shakti%20Jewellers*!%20👋%0A%0AI%20would%20like%20to%20inquire%20about%20your%20jewellery%20collection."
+      class="whatsapp-float"
+      target="_blank"
+      title="Chat with us on WhatsApp"
+    >
+      <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <script>
+      // Replace with your actual WhatsApp business number (country code + number, no spaces or +)
+      const WHATSAPP_NUMBER = "919555319530";
+
+      function inquireWhatsApp(productName, category, material, price) {
+        const message =
+          `Hi! I'm interested in:%0A%0A` +
+          `Product: ${productName}%0A` +
+          `Category: ${category}%0A` +
+          `Material: ${material}%0A` +
+          `Price: ₹${price.toLocaleString()}%0A%0A` +
+          `I would like to know more details.`;
+        const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+        window.open(whatsappURL, "_blank");
+      }
+
+      $("#banner-carousel .owl-carousel").owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        dots: true,
+        responsive: {
+          0: { items: 1 },
+          576: { items: 1 },
+          768: { items: 2 },
+          992: { items: 3 },
+          1200: { items: 3 },
+        },
+      });
+
+       function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+  const authBtn = document.getElementById("auth-btn");
+  const token = localStorage.getItem("authToken") || getCookie("token");
+
+  if (token) {
+    authBtn.textContent = "Logout";
+    authBtn.href = "#";
+    authBtn.addEventListener("click", async () => {
+
+      // ✅ Call backend logout
+      await fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        credentials: "include"
+      });
+
+      // ✅ Clear frontend token also
+      localStorage.removeItem("authToken");
+
+      alert("Logged out successfully!");
+      window.location.reload();
+    });
+  }
+
+    </script>
 
     <script>
       // Sample Products Data
-      const allProducts = [
-        {
-          id: 1,
-          name: "Diamond Solitaire Ring",
-          category: "Rings",
-          material: "Diamond",
-          price: 45000,
-          rating: 4.8,
-          reviews: 156,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop",
-          badge: "Bestseller",
-        },
-        {
-          id: 2,
-          name: "Gold Chain Necklace",
-          category: "Necklaces",
-          material: "Gold",
-          price: 32000,
-          rating: 4.6,
-          reviews: 203,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 3,
-          name: "Silver Hoop Earrings",
-          category: "Earrings",
-          material: "Silver",
-          price: 5500,
-          rating: 4.5,
-          reviews: 89,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
-          badge: "New",
-        },
-        {
-          id: 4,
-          name: "Platinum Wedding Band",
-          category: "Rings",
-          material: "Platinum",
-          price: 55000,
-          rating: 4.9,
-          reviews: 234,
-          gender: "Unisex",
-          image:
-            "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 5,
-          name: "Emerald Pendant Necklace",
-          category: "Necklaces",
-          material: "Gemstone",
-          price: 38000,
-          rating: 4.7,
-          reviews: 145,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop",
-          badge: "Bestseller",
-        },
-        {
-          id: 6,
-          name: "Gold Bangle Bracelet",
-          category: "Bracelets",
-          material: "Gold",
-          price: 28000,
-          rating: 4.6,
-          reviews: 178,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 7,
-          name: "Diamond Stud Earrings",
-          category: "Earrings",
-          material: "Diamond",
-          price: 42000,
-          rating: 4.8,
-          reviews: 267,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=400&h=400&fit=crop",
-          badge: "Bestseller",
-        },
-        {
-          id: 8,
-          name: "Silver Anklet Chain",
-          category: "Anklets",
-          material: "Silver",
-          price: 4500,
-          rating: 4.4,
-          reviews: 92,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop",
-          badge: "New",
-        },
-        {
-          id: 9,
-          name: "Men's Gold Ring",
-          category: "Rings",
-          material: "Gold",
-          price: 35000,
-          rating: 4.7,
-          reviews: 123,
-          gender: "Men",
-          image:
-            "https://images.unsplash.com/photo-1603561596112-0a132b757442?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 10,
-          name: "Ruby Gemstone Necklace",
-          category: "Necklaces",
-          material: "Gemstone",
-          price: 48000,
-          rating: 4.9,
-          reviews: 198,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=400&fit=crop",
-          badge: "Bestseller",
-        },
-        {
-          id: 11,
-          name: "Diamond Tennis Bracelet",
-          category: "Bracelets",
-          material: "Diamond",
-          price: 62000,
-          rating: 4.9,
-          reviews: 312,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=400&fit=crop",
-          badge: "Premium",
-        },
-        {
-          id: 12,
-          name: "Gold Drop Earrings",
-          category: "Earrings",
-          material: "Gold",
-          price: 18000,
-          rating: 4.5,
-          reviews: 156,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 13,
-          name: "Silver Chain Bracelet",
-          category: "Bracelets",
-          material: "Silver",
-          price: 8500,
-          rating: 4.4,
-          reviews: 87,
-          gender: "Unisex",
-          image:
-            "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
-          badge: "New",
-        },
-        {
-          id: 14,
-          name: "Sapphire Ring",
-          category: "Rings",
-          material: "Gemstone",
-          price: 52000,
-          rating: 4.8,
-          reviews: 201,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 15,
-          name: "Pearl Necklace Set",
-          category: "Necklaces",
-          material: "Gemstone",
-          price: 25000,
-          rating: 4.6,
-          reviews: 134,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop",
-          badge: "Bestseller",
-        },
-        {
-          id: 16,
-          name: "Men's Silver Chain",
-          category: "Necklaces",
-          material: "Silver",
-          price: 12000,
-          rating: 4.5,
-          reviews: 98,
-          gender: "Men",
-          image:
-            "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 17,
-          name: "Gold Anklet",
-          category: "Anklets",
-          material: "Gold",
-          price: 15000,
-          rating: 4.6,
-          reviews: 76,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop",
-          badge: "New",
-        },
-        {
-          id: 18,
-          name: "Diamond Halo Ring",
-          category: "Rings",
-          material: "Diamond",
-          price: 68000,
-          rating: 4.9,
-          reviews: 289,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
-          badge: "Premium",
-        },
-        {
-          id: 19,
-          name: "Gold Charm Bracelet",
-          category: "Bracelets",
-          material: "Gold",
-          price: 22000,
-          rating: 4.7,
-          reviews: 167,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 20,
-          name: "Silver Stud Earrings",
-          category: "Earrings",
-          material: "Silver",
-          price: 3500,
-          rating: 4.3,
-          reviews: 92,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 21,
-          name: "Platinum Necklace",
-          category: "Necklaces",
-          material: "Platinum",
-          price: 72000,
-          rating: 4.9,
-          reviews: 178,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=400&fit=crop",
-          badge: "Premium",
-        },
-        {
-          id: 22,
-          name: "Diamond Bracelet",
-          category: "Bracelets",
-          material: "Diamond",
-          price: 58000,
-          rating: 4.8,
-          reviews: 245,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
-          badge: "Bestseller",
-        },
-        {
-          id: 23,
-          name: "Gold Hoops",
-          category: "Earrings",
-          material: "Gold",
-          price: 14000,
-          rating: 4.6,
-          reviews: 134,
-          gender: "Women",
-          image:
-            "https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=400&h=400&fit=crop",
-          badge: "",
-        },
-        {
-          id: 24,
-          name: "Men's Platinum Ring",
-          category: "Rings",
-          material: "Platinum",
-          price: 48000,
-          rating: 4.7,
-          reviews: 156,
-          gender: "Men",
-          image:
-            "https://images.unsplash.com/photo-1603561596112-0a132b757442?w=400&h=400&fit=crop",
-          badge: "New",
-        },
-      ];
+      //const allProducts = [
+        // {
+        //   id: 1,
+        //   name: "Diamond Solitaire Ring",
+        //   category: "Rings",
+        //   material: "Diamond",
+        //   price: 45000,
+        //   rating: 4.8,
+        //   reviews: 156,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop",
+        //   badge: "Bestseller",
+        // },
+        // {
+        //   id: 2,
+        //   name: "Gold Chain Necklace",
+        //   category: "Necklaces",
+        //   material: "Gold",
+        //   price: 32000,
+        //   rating: 4.6,
+        //   reviews: 203,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 3,
+        //   name: "Silver Hoop Earrings",
+        //   category: "Earrings",
+        //   material: "Silver",
+        //   price: 5500,
+        //   rating: 4.5,
+        //   reviews: 89,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
+        //   badge: "New",
+        // },
+        // {
+        //   id: 4,
+        //   name: "Platinum Wedding Band",
+        //   category: "Rings",
+        //   material: "Platinum",
+        //   price: 55000,
+        //   rating: 4.9,
+        //   reviews: 234,
+        //   gender: "Unisex",
+        //   image:
+        //     "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 5,
+        //   name: "Emerald Pendant Necklace",
+        //   category: "Necklaces",
+        //   material: "Gemstone",
+        //   price: 38000,
+        //   rating: 4.7,
+        //   reviews: 145,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop",
+        //   badge: "Bestseller",
+        // },
+        // {
+        //   id: 6,
+        //   name: "Gold Bangle Bracelet",
+        //   category: "Bracelets",
+        //   material: "Gold",
+        //   price: 28000,
+        //   rating: 4.6,
+        //   reviews: 178,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 7,
+        //   name: "Diamond Stud Earrings",
+        //   category: "Earrings",
+        //   material: "Diamond",
+        //   price: 42000,
+        //   rating: 4.8,
+        //   reviews: 267,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=400&h=400&fit=crop",
+        //   badge: "Bestseller",
+        // },
+        // {
+        //   id: 8,
+        //   name: "Silver Anklet Chain",
+        //   category: "Anklets",
+        //   material: "Silver",
+        //   price: 4500,
+        //   rating: 4.4,
+        //   reviews: 92,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop",
+        //   badge: "New",
+        // },
+        // {
+        //   id: 9,
+        //   name: "Men's Gold Ring",
+        //   category: "Rings",
+        //   material: "Gold",
+        //   price: 35000,
+        //   rating: 4.7,
+        //   reviews: 123,
+        //   gender: "Men",
+        //   image:
+        //     "https://images.unsplash.com/photo-1603561596112-0a132b757442?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 10,
+        //   name: "Ruby Gemstone Necklace",
+        //   category: "Necklaces",
+        //   material: "Gemstone",
+        //   price: 48000,
+        //   rating: 4.9,
+        //   reviews: 198,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=400&fit=crop",
+        //   badge: "Bestseller",
+        // },
+        // {
+        //   id: 11,
+        //   name: "Diamond Tennis Bracelet",
+        //   category: "Bracelets",
+        //   material: "Diamond",
+        //   price: 62000,
+        //   rating: 4.9,
+        //   reviews: 312,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=400&fit=crop",
+        //   badge: "Premium",
+        // },
+        // {
+        //   id: 12,
+        //   name: "Gold Drop Earrings",
+        //   category: "Earrings",
+        //   material: "Gold",
+        //   price: 18000,
+        //   rating: 4.5,
+        //   reviews: 156,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 13,
+        //   name: "Silver Chain Bracelet",
+        //   category: "Bracelets",
+        //   material: "Silver",
+        //   price: 8500,
+        //   rating: 4.4,
+        //   reviews: 87,
+        //   gender: "Unisex",
+        //   image:
+        //     "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
+        //   badge: "New",
+        // },
+        // {
+        //   id: 14,
+        //   name: "Sapphire Ring",
+        //   category: "Rings",
+        //   material: "Gemstone",
+        //   price: 52000,
+        //   rating: 4.8,
+        //   reviews: 201,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 15,
+        //   name: "Pearl Necklace Set",
+        //   category: "Necklaces",
+        //   material: "Gemstone",
+        //   price: 25000,
+        //   rating: 4.6,
+        //   reviews: 134,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop",
+        //   badge: "Bestseller",
+        // },
+        // {
+        //   id: 16,
+        //   name: "Men's Silver Chain",
+        //   category: "Necklaces",
+        //   material: "Silver",
+        //   price: 12000,
+        //   rating: 4.5,
+        //   reviews: 98,
+        //   gender: "Men",
+        //   image:
+        //     "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 17,
+        //   name: "Gold Anklet",
+        //   category: "Anklets",
+        //   material: "Gold",
+        //   price: 15000,
+        //   rating: 4.6,
+        //   reviews: 76,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop",
+        //   badge: "New",
+        // },
+        // {
+        //   id: 18,
+        //   name: "Diamond Halo Ring",
+        //   category: "Rings",
+        //   material: "Diamond",
+        //   price: 68000,
+        //   rating: 4.9,
+        //   reviews: 289,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
+        //   badge: "Premium",
+        // },
+        // {
+        //   id: 19,
+        //   name: "Gold Charm Bracelet",
+        //   category: "Bracelets",
+        //   material: "Gold",
+        //   price: 22000,
+        //   rating: 4.7,
+        //   reviews: 167,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 20,
+        //   name: "Silver Stud Earrings",
+        //   category: "Earrings",
+        //   material: "Silver",
+        //   price: 3500,
+        //   rating: 4.3,
+        //   reviews: 92,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 21,
+        //   name: "Platinum Necklace",
+        //   category: "Necklaces",
+        //   material: "Platinum",
+        //   price: 72000,
+        //   rating: 4.9,
+        //   reviews: 178,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=400&fit=crop",
+        //   badge: "Premium",
+        // },
+        // {
+        //   id: 22,
+        //   name: "Diamond Bracelet",
+        //   category: "Bracelets",
+        //   material: "Diamond",
+        //   price: 58000,
+        //   rating: 4.8,
+        //   reviews: 245,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop",
+        //   badge: "Bestseller",
+        // },
+        // {
+        //   id: 23,
+        //   name: "Gold Hoops",
+        //   category: "Earrings",
+        //   material: "Gold",
+        //   price: 14000,
+        //   rating: 4.6,
+        //   reviews: 134,
+        //   gender: "Women",
+        //   image:
+        //     "https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=400&h=400&fit=crop",
+        //   badge: "",
+        // },
+        // {
+        //   id: 24,
+        //   name: "Men's Platinum Ring",
+        //   category: "Rings",
+        //   material: "Platinum",
+        //   price: 48000,
+        //   rating: 4.7,
+        //   reviews: 156,
+        //   gender: "Men",
+        //   image:
+        //     "https://images.unsplash.com/photo-1603561596112-0a132b757442?w=400&h=400&fit=crop",
+        //   badge: "New",
+        // },
+      //];
 
-      let displayedProducts = [...allProducts];
-
+      // let displayedProducts = [...allProducts];
+    
       // Load products on page load
-      window.onload = function () {
-        displayProducts(displayedProducts);
-      };
+     let allProducts = [];
+let displayedProducts = [];
+
+window.onload = async function () {
+  try {
+    const result = await fetch('http://localhost:5000/product');
+    const data = await result.json();
+
+    if (data && Array.isArray(data.products)) {
+      allProducts = data.products; // 🟩 store for filters
+      displayedProducts = [...allProducts];
+      displayProducts(displayedProducts);
+    } else {
+      console.error("Invalid product data:", data);
+      document.getElementById("noProducts").style.display = "block";
+    }
+  } catch (err) {
+    console.error("Error fetching products:", err);
+  }
+};
+
+
 
       // Display products
       function displayProducts(products) {
@@ -1233,48 +1342,12 @@
       document
         .getElementById("maxPrice")
         .addEventListener("input", applyFilters);
+
+
+
     </script>
-
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919876543210?text=Hi%20*Shiv%20Shakti%20Jewellers*!%20👋%0A%0AI%20would%20like%20to%20inquire%20about%20your%20jewellery%20collection." 
-       class="whatsapp-float" 
-       target="_blank"
-       title="Chat with us on WhatsApp">
-        <i class="bi bi-whatsapp"></i>
-    </a>
-    <script>
-// Replace with your actual WhatsApp business number (country code + number, no spaces or +)
-const WHATSAPP_NUMBER = '919555319530'; // Example: 91 for India + 10-digit number
-
-function inquireWhatsApp(productName, category, material, price) {
-    // Create formatted message for WhatsApp
-    const message = `Hi! I'm interested in:%0A%0A` +
-                   `Product: ${productName}%0A` +
-                   `Category: ${category}%0A` +
-                   `Material: ${material}%0A` +
-                   `Price: ₹${price.toLocaleString()}%0A%0A` +
-                   `I would like to know more details.`;
     
-    // Open WhatsApp in new tab
-    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
-    window.open(whatsappURL, '_blank');
-}
-
-
-$('#banner-carousel .owl-carousel').owlCarousel({
-  loop: true,
-  margin: 10,
-  nav: true,
-  dots: true,
-  responsive: {
-      0:    { items: 1 },   // Mobile devices
-      576:  { items: 1 },
-      768:  { items: 2 },   // Tablets show 2 images
-      992:  { items: 3 },   // Desktop / large screens show 3 images
-      1200: { items: 3 }
-  }
-});
-
-</script>
+  <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

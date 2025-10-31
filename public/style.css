@@ -304,3 +304,32 @@ body {
     font-size: 0.95rem;
   }
 }
+
+/* Profile Image Alignment - Laptop and Desktop screens only */
+@media (min-width: 992px) {
+  .navbar-nav {
+    align-items: center;
+  }
+  
+  .navbar .nav-item.dropdown {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .nav-item.dropdown .nav-link {
+    padding: 0;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .nav-item.dropdown .nav-link img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .navbar .nav-item.dropdown .nav-link:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+  }
+}

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Shiv Shakti Jewellers</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Page Icon -->
+  <link rel="icon" href="img/gem.svg">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a1a;
+    }
+
+    .navbar {
+      background: #1a1a1a !important;
+      padding: 15px 0;
+    }
+
+    .navbar-brand {
+      color: #d4af37 !important;
+      font-weight: 700;
+    }
+
+    .nav-link {
+      color: #fff !important;
+    }
+
+    .nav-link:hover {
+      color: #d4af37 !important;
+    }
+
+    .admin-container {
+      padding: 50px 20px;
+    }
+
+    .dashboard-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .dashboard-card h4 {
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .btn-gold {
+      background: #d4af37;
+      color: #1a1a1a;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-gold:hover {
+      background: #c9a62e;
+      transform: translateY(-3px);
+    }
+
+    .table thead {
+      background: #1a1a1a;
+      color: #d4af37;
+    }
+
+    .table tbody tr:hover {
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .section-header {
+      margin-bottom: 25px;
+      border-bottom: 3px solid #d4af37;
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media(max-width:768px) {
+      .dashboard-card {
+        margin-bottom: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#"><i class="bi bi-gem"></i> Shiv Shakti Jewellers</a>
+      <div class="ms-auto">
+        <a class="btn btn-gold" href="index.html"><i class="bi bi-house-door"></i> Back to Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Dashboard -->
+  <div class="container admin-container">
+    <h2 class="fw-bold text-center mb-5"><i class="bi bi-sliders"></i> Admin Dashboard</h2>
+
+    <div class="row g-4">
+      <!-- Manage Products -->
+      <div class="col-md-4">
+        <div class="dashboard-card text-center">
+          <i class="bi bi-bag-plus" style="font-size:3rem; color:#d4af37;"></i>
+          <h4 class="mt-3">Manage Products</h4>
+          <p>Add or remove jewellery items showcased on your website.</p>
+          <button class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#manageProducts">
+            <i class="bi bi-pencil-square"></i> Open Panel
+          </button>
+        </div>
+      </div>
+
+      <!-- Post Blog -->
+      <div class="col-md-4">
+        <div class="dashboard-card text-center">
+          <i class="bi bi-journal-text" style="font-size:3rem; color:#d4af37;"></i>
+          <h4 class="mt-3">Blog Management</h4>
+          <p>Post blogs and monitor blog views accessible to admin only.</p>
+          <button class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#postBlog">
+            <i class="bi bi-plus-circle"></i> Open Panel
+          </button>
+        </div>
+      </div>
+
+      <!-- Manage Users -->
+      <div class="col-md-4">
+        <div class="dashboard-card text-center">
+          <i class="bi bi-people" style="font-size:3rem; color:#d4af37;"></i>
+          <h4 class="mt-3">User Management</h4>
+          <p>View registered users and remove unwanted accounts when needed.</p>
+          <button class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#manageUsers">
+            <i class="bi bi-person-gear"></i> Open Panel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- Manage Products Modal -->
+  <div class="modal fade" id="manageProducts" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-light">
+          <h5 class="modal-title"><i class="bi bi-bag-plus"></i> Manage Products</h5>
+          <button type="button" class="btn-close btn-light" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="productForm" class="mb-4" enctype="multipart/form-data">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <input name="name" id="productName" type="text" placeholder="Product Name" class="form-control"
+                  required>
+              </div>
+              <div class="col-md-6">
+                <input name="category" id="productCategory" type="text" placeholder="Category (ring, jewellery, anklets,etc)"
+                  class="form-control">
+              </div>
+              <div class="col-md-6">
+                <input name="material" id="productmaterial" type="text" placeholder="material (Gold, Silver, etc)"
+                  class="form-control">
+              </div>
+
+              <div class="col-md-6">
+                <input name="price" id="productPrice" type="number" placeholder="Price (₹)" class="form-control"
+                  step="0.01">
+              </div>
+              <div class="col-md-6">
+                <input name="gender" id="gender" type="text" placeholder="gender like men women,kids and unisex" class="form-control"
+                  step="0.01">
+              </div>
+              <div class="col-md-6">
+                <input name="badge" id="badge" type="text" placeholder="badge like besteseller,new or trending etc" class="form-control"
+                  step="0.01">
+              </div>
+              <div class="col-md-6">
+                <input name="image" id="productImage" type="file" class="form-control" accept="image/*">
+              </div>
+              <div class="col-12">
+                <textarea name="description" id="productDescription" class="form-control"
+                  placeholder="Product Description"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-gold mt-4"><i class="bi bi-plus-lg"></i> Add Product</button>
+          </form>
+
+
+          <h5 class="mb-3"><i class="bi bi-list-ul"></i> Existing Products</h5>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Diamond Ring</td>
+                <td>Diamond</td>
+                <td>₹15,000</td>
+                <td><button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post Blog Modal -->
+ 
+<!-- ✍️ Post Blog Modal -->
+<div class="modal fade" id="postBlog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-light">
+        <h5 class="modal-title"><i class="bi bi-journal-text"></i> Blog Management</h5>
+        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Blog Form -->
+        <form id="blogForm" enctype="multipart/form-data">
+          <input type="text" name="title" class="form-control mb-3" placeholder="Blog Title" required>
+          <textarea name="description" class="form-control mb-3" rows="5" placeholder="Blog Content" required></textarea>
+          <input type="text" name="category" class="form-control mb-3" placeholder="Blog category like Gold, Silver etc" required>
+          <label for="blogImage" class="form-label"><i class="bi bi-image"></i> Blog Image (Optional)</label>
+          <input type="file" name="image" id="blogImage" class="form-control mb-4" accept="image/*">
+          <button type="submit" class="btn btn-gold"><i class="bi bi-upload"></i> Post Blog</button>
+        </form>
+
+        <hr>
+
+        <h6 class="mt-3"><i class="bi bi-eye"></i> Blog Views (Admin Only)</h6>
+        <table class="table table-bordered mt-3">
+          <thead>
+            <tr>
+              <th>Preview</th>
+              <th>Title</th>
+              <th>Views</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="blogTableBody">
+            <tr><td colspan="4" class="text-center">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Manage Users Modal -->
+  <div class="modal fade" id="manageUsers" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-light">
+          <h5 class="modal-title"><i class="bi bi-people"></i> Manage Users</h5>
+          <button type="button" class="btn-close btn-light" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Riya Sharma</td>
+                <td>riya123@gmail.com</td>
+                <td><button class="btn btn-danger btn-sm"><i class="bi bi-person-x"></i> Remove</button></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Amit Patel</td>
+                <td>amitp@gmail.com</td>
+                <td><button class="btn btn-danger btn-sm"><i class="bi bi-person-x"></i> Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<script>
+  // ==================================================
+  // 🌟 Shiv Shakti Jewellers Admin Dashboard Script
+  // ==================================================
+
+  // ---------- Helper utilities ----------
+  const API = {
+    products: "/api/admin/products",
+    posts: "/api/admin/posts",
+    users: "/api/admin/users",
+  };
+
+  async function fetchJSON(url, options = {}) {
+    const res = await fetch(url, { credentials: "include", ...options });
+    return res.json();
+  }
+
+  // ==================================================
+  // 🛍️ PRODUCT MANAGEMENT
+  // ==================================================
+  const productForm = document.querySelector("#manageProducts form");
+  const productTableBody = document.querySelector("#manageProducts tbody");
+
+  productForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(productForm);
+
+    try {
+      const res = await fetch(API.products, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+      const data = await res.json();
+      alert(data.message || "✅ Product added successfully!");
+      await loadProducts();
+      productForm.reset();
+    } catch (err) {
+      console.error("Product add error:", err);
+      alert("❌ Failed to add product.");
+    }
+  });
+
+  async function loadProducts() {
+    try {
+      const data = await fetchJSON(API.products);
+      productTableBody.innerHTML = "";
+      data.products?.forEach((p, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${p.name || "-"}</td>
+        <td>${p.category || "-"}</td>
+        <td>₹${p.price || "0"}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p._id}')">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>`;
+        productTableBody.appendChild(tr);
+      });
+    } catch (err) {
+      console.error("Load products error:", err);
+    }
+  }
+
+  async function deleteProduct(id) {
+    if (!confirm("🗑️ Delete this product?")) return;
+    try {
+      const res = await fetchJSON(`${API.products}/${id}`, { method: "DELETE" });
+      alert(res.message || "✅ Product deleted");
+      await loadProducts();
+    } catch (err) {
+      console.error("Delete product error:", err);
+    }
+  }
+
+  document
+    .getElementById("manageProducts")
+    ?.addEventListener("show.bs.modal", loadProducts);
+
+  
+  // ==================================================
+  // ✍️ BLOG MANAGEMENT (Updated with Delete)
+  // ==================================================
+  const blogForm = document.querySelector("#postBlog form");
+  const blogTableBody = document.querySelector("#blogTableBody");
+
+  // Handle blog form submit
+  blogForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(blogForm);
+
+    try {
+      const res = await fetch(API.posts, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+      const data = await res.json();
+      alert(data.message || "✅ Blog posted successfully!");
+      await loadBlogs();
+      blogForm.reset();
+    } catch (err) {
+      console.error("Post blog error:", err);
+      alert("❌ Failed to post blog.");
+    }
+  });
+
+  // Fetch blogs
+  async function loadBlogs() {
+    try {
+      const data = await fetchJSON("http://localhost:5000/api/posts");
+      blogTableBody.innerHTML = "";
+      if (!data.posts?.length) {
+        blogTableBody.innerHTML = `<tr><td colspan="4" class="text-center">No blogs found.</td></tr>`;
+        return;
+      }
+
+      data.posts.forEach((b, i) => {
+        const img = b.image || "img/blog-placeholder.jpg";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><img src="${img}" alt="Blog Image" style="width:80px;border-radius:8px;"></td>
+          <td>${b.title || "Untitled"}</td>
+          <td>${b.views || 0}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" onclick="deleteBlog('${b._id}')">
+              <i class="bi bi-trash"></i> Remove
+            </button>
+          </td>`;
+        blogTableBody.appendChild(tr);
+      });
+    } catch (err) {
+      console.error("Load blogs error:", err);
+      blogTableBody.innerHTML = `<tr><td colspan="4" class="text-danger text-center">Error loading blogs.</td></tr>`;
+    }
+  }
+
+  // Delete blog
+  async function deleteBlog(id) {
+    if (!confirm("🗑️ Are you sure you want to delete this blog?")) return;
+    try {
+      const res = await fetchJSON(`${API.posts}/${id}`, { method: "DELETE" });
+      alert(res.message || "✅ Blog deleted successfully!");
+      await loadBlogs();
+    } catch (err) {
+      console.error("Delete blog error:", err);
+      alert("❌ Failed to delete blog.");
+    }
+  }
+
+  // Load blogs when modal opens
+  document.getElementById("postBlog")?.addEventListener("show.bs.modal", loadBlogs);
+
+
+
+  // ==================================================
+  // 👥 USER MANAGEMENT
+  // ==================================================
+  const userTableBody = document.querySelector("#manageUsers tbody");
+
+  async function loadUsers() {
+    try {
+      const data = await fetchJSON(API.users);
+      console.log(data)
+      userTableBody.innerHTML = "";
+      data.Users?.forEach((u, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${u.name || "Unknown"}</td>
+        <td>${u.email}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" onclick="deleteUser('${u._id}')">
+            <i class="bi bi-person-x"></i> Remove
+          </button>
+        </td>`;
+        userTableBody.appendChild(tr);
+      });
+    } catch (err) {
+      console.error("Load users error:", err);
+    }
+  }
+
+  async function deleteUser(id) {
+    if (!confirm("❌ Remove this user?")) return;
+    try {
+      const res = await fetchJSON(`${API.users}/${id}`, { method: "DELETE" });
+      alert(res.message || "✅ User removed");
+      await loadUsers();
+    } catch (err) {
+      console.error("Delete user error:", err);
+    }
+  }
+
+  document
+    .getElementById("manageUsers")
+    ?.addEventListener("show.bs.modal", loadUsers);
+
+</script>
+
+</html>

@@ -146,6 +146,38 @@
       color: #1a1a1a;
     }
 
+    /* Fix image and scrolling behavior inside modal */
+#blogModal .modal-body {
+  overflow-y: auto;       /* vertical scrolling only */
+  overflow-x: hidden;     /* prevent horizontal scroll */
+  max-height: 80vh;       /* limit modal height */
+}
+
+#blogModalImage {
+  width: 100%;            /* make image span full modal width */
+  height: auto;            /* maintain aspect ratio */
+  object-fit: cover;       /* cover style, no overflow */
+  border-radius: 10px;     /* smooth corners */
+  display: block;
+  margin: 0 auto 20px auto; /* center and add spacing below */
+}
+/* Ensure modal grows naturally with content */
+#blogModal .modal-dialog {
+  max-width: 900px; /* slightly wider modal */
+}
+
+#blogModal .modal-content {
+  max-height: none !important; /* remove fixed height */
+}
+
+#blogModal .modal-body {
+  overflow-x: hidden;   /* no horizontal scroll */
+  overflow-y: visible;  /* allow content to expand vertically */
+  word-wrap: break-word; /* wrap long text properly */
+  white-space: normal;   /* ensure long description wraps */
+}
+
+
     /* Pagination */
     .pagination {
       justify-content: center;
@@ -238,8 +270,9 @@
                         <a class="nav-link" href="blog.html"><i class="bi bi-substack"></i>Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-login" href="signupLogin.html">Login</a>
-                    </li>
+    <a id="auth-btn" class="btn btn-login" href="signupLogin.html">Login</a>
+</li>
+
                 </ul>
             </div>
         </div>
@@ -359,47 +392,71 @@
    </div>
   <script>
 // Dummy blog data to simulate database
-const blogs = [
-  {
-    title: "Trends in Gold Jewellery 2025",
-    excerpt: "Discover the top gold jewellery trends of 2025 including new designs and styles.",
-    category: "gold",
-    date: "2025-09-01",
-    views: 245,
-    img: "img/jewelsTrends.jpg"
-  },
-  {
-    title: "Guide to Caring for Diamond Jewellery",
-    excerpt: "Learn how to keep your diamond jewellery sparkling and beautiful.",
-    category: "diamond",
-    date: "2025-08-15",
-    views: 198,
-    img: "img/Jewellerycare.jpg"
-  },
-  {
-    title: "Gemstone Jewellery: What to Know",
-    excerpt: "A comprehensive guide to gemstone jewellery, including care and styles.",
-    category: "gemstone",
-    date: "2025-07-10",
-    views: 154,
-    img: "img/Gemstone.png"
-  },
-  {
-    title: "Silver Jewellery Styling Tips",
-    excerpt: "How to style your silver jewellery for every occasion.",
-    category: "silver",
-    date: "2025-06-20",
-    views: 90,
-    img: "img/silverJewelleryStyle.png"
+// const blogs = [
+  // {
+  //   title: "Trends in Gold Jewellery 2025",
+  //   excerpt: "Discover the top gold jewellery trends of 2025 including new designs and styles.",
+  //   category: "gold",
+  //   date: "2025-09-01",
+  //   views: 245,
+  //   img: "img/jewelsTrends.jpg"
+  // },
+  // {
+  //   title: "Guide to Caring for Diamond Jewellery",
+  //   excerpt: "Learn how to keep your diamond jewellery sparkling and beautiful.",
+  //   category: "diamond",
+  //   date: "2025-08-15",
+  //   views: 198,
+  //   img: "img/Jewellerycare.jpg"
+  // },
+  // {
+  //   title: "Gemstone Jewellery: What to Know",
+  //   excerpt: "A comprehensive guide to gemstone jewellery, including care and styles.",
+  //   category: "gemstone",
+  //   date: "2025-07-10",
+  //   views: 154,
+  //   img: "img/Gemstone.png"
+  // },
+  // {
+  //   title: "Silver Jewellery Styling Tips",
+  //   excerpt: "How to style your silver jewellery for every occasion.",
+  //   category: "silver",
+  //   date: "2025-06-20",
+  //   views: 90,
+  //   img: "img/silverJewelleryStyle.png"
+  // }
+// ];
+
+let blogs = [];
+
+// ✅ Corrected: use lowercase "window"
+window.onload = async () => {
+  const data = await fetchPost();
+  const posts = data.posts || []; // ✅ extract the posts array
+
+  if (Array.isArray(posts)) {
+    blogs = posts.map(post => ({
+       id: post._id,
+      title: post.title,
+      excerpt: post.description || "",
+      category: post.category || "general",
+      date: post.date || new Date(),
+      views: post.views || 0,
+      img: post.image ? `http://localhost:5000${post.image}` : "img/default.jpg" // ✅ show uploaded image
+    }));
+
+    renderBlogs(blogs);
+  } else {
+    console.error("Backend did not return an array:", data);
   }
-];
+};
 
 // Function to render blogs in container
 function renderBlogs(filteredBlogs) {
   const container = document.getElementById('blogsContainer');
   container.innerHTML = '';
 
-  if (filteredBlogs.length === 0) {
+  if (!filteredBlogs || filteredBlogs.length === 0) {
     container.innerHTML =
       '<p class="text-center text-muted">No blogs found matching your criteria.</p>';
     return;
@@ -417,13 +474,14 @@ function renderBlogs(filteredBlogs) {
             <p class="blog-excerpt">${blog.excerpt}</p>
             <div class="blog-meta">Read time: 5 min | Views: ${blog.views}</div>
             <a href="#" class="btn-read-more" 
+               data-id="${blog.id}"
                data-bs-toggle="modal" 
                data-bs-target="#blogModal"
                data-title="${blog.title}"
                data-content="${blog.excerpt}"
-               data-img="${blog.img}"
-            >
-            Read More <i class="bi bi-arrow-right"></i></a>
+               data-img="${blog.img}">
+               Read More <i class="bi bi-arrow-right"></i>
+            </a>
           </div>
         </article>
       </div>
@@ -431,7 +489,6 @@ function renderBlogs(filteredBlogs) {
     container.insertAdjacentHTML('beforeend', blogHTML);
   });
 }
-
 
 // Initial render: Show all blogs
 renderBlogs(blogs);
@@ -443,22 +500,19 @@ document.getElementById('searchButton').addEventListener('click', () => {
 
   let filteredBlogs = blogs;
 
-  // Filter by category or special filters
-  if(filterValue !== 'all') {
-    if(filterValue === 'top') {
+  if (filterValue !== 'all') {
+    if (filterValue === 'top') {
       filteredBlogs = filteredBlogs.sort((a,b) => b.views - a.views);
-    } else if(filterValue === 'newest') {
+    } else if (filterValue === 'newest') {
       filteredBlogs = filteredBlogs.sort((a,b) => new Date(b.date) - new Date(a.date));
-    } else if(filterValue === 'oldest') {
+    } else if (filterValue === 'oldest') {
       filteredBlogs = filteredBlogs.sort((a,b) => new Date(a.date) - new Date(b.date));
     } else {
-      // Filter by category matches
       filteredBlogs = filteredBlogs.filter(blog => blog.category === filterValue);
     }
   }
 
-  // Filter by search term in the title or excerpt
-  if(searchTerm) {
+  if (searchTerm) {
     filteredBlogs = filteredBlogs.filter(blog =>
       blog.title.toLowerCase().includes(searchTerm) || blog.excerpt.toLowerCase().includes(searchTerm)
     );
@@ -466,7 +520,6 @@ document.getElementById('searchButton').addEventListener('click', () => {
 
   renderBlogs(filteredBlogs);
 });
-
 
 const blogModal = document.getElementById('blogModal');
 
@@ -488,10 +541,63 @@ blogModal.addEventListener('show.bs.modal', event => {
   }
 });
 
+// Check if token exists in cookies or localStorage
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
+const authBtn = document.getElementById("auth-btn");
+const token = localStorage.getItem("authToken") || getCookie("token");
 
+if (token) {
+  authBtn.textContent = "Logout";
+  authBtn.href = "#";
+  authBtn.addEventListener("click", function () {
+    localStorage.removeItem("token");
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    alert("Logged out successfully!");
+    window.location.reload();
+  });
+}
+
+// ✅ Corrected: Added missing "//" in URL and proper fetch return
+async function fetchPost() {
+  try {
+    const result = await fetch("http://localhost:5000/api/posts");
+    return await result.json();
+  } catch (err) {
+    console.error("Fetch error:", err);
+    return [];
+  }
+}
+// When user clicks "Read More", increment view count
+document.addEventListener('click', async (e) => {
+  if (e.target.classList.contains('btn-read-more')) {
+    const postId = e.target.getAttribute('data-id');
+    try {
+      const res = await fetch(`http://localhost:5000/api/posts/views/${postId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        console.log('View incremented');
+        // Optional: Update the UI
+        const blog = blogs.find(b => b.id === postId);
+        if (blog) blog.views++;
+        renderBlogs(blogs);
+      }
+    } catch (err) {
+      console.error('Error updating views:', err);
+    }
+  }
+});
 
 </script>
+
 
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reset Password - Shiv Shakti Jewels</title>
+  <style>
+    /* Black and golden theme styles */
+    body {
+      background-color: #121212;
+      color: #d4af37;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 10px;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .reset-container {
+      background: #1c1c1c;
+      border: 2px solid #d4af37;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #d4af37;
+      width: 360px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 25px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #f0d98c;
+      text-align: left;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1.5px solid #d4af37;
+      border-radius: 8px;
+      background-color: #121212;
+      color: #d4af37;
+      font-size: 1em;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    input[type="password"]:focus {
+      border-color: #f0d98c;
+      box-shadow: 0 0 8px #f0d98c;
+    }
+    button {
+      width: 100%;
+      background-color: #d4af37;
+      border: none;
+      padding: 14px 0;
+      font-size: 1.1em;
+      font-weight: 700;
+      color: #121212;
+      text-transform: uppercase;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #f0d98c;
+      color: #111;
+    }
+    .message {
+      color: #f0d98c;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="reset-container">
+    <h2>Reset Password</h2>
+    <form id="resetForm">
+      <label for="newPassword">New Password</label>
+      <input type="password" id="newPassword" name="newPassword" required minlength="6" placeholder="Enter new password" />
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" placeholder="Confirm new password" />
+      <button type="submit">Reset Password</button>
+      <div class="message" id="message"></div>
+    </form>
+  </div>
+
+  <script>
+  // Get token from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+  const messageEl = document.getElementById("message");
+  const form = document.getElementById("resetForm");
+
+  if (!token) {
+    messageEl.textContent = "Invalid or expired password reset link.";
+    messageEl.style.color = "red";
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const newPassword = form.newPassword.value.trim();
+    const confirmPassword = form.confirmPassword.value.trim();
+
+    if (newPassword.length < 6) {
+      messageEl.textContent = "Password must be at least 6 characters.";
+      messageEl.style.color = "red";
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      messageEl.textContent = "Passwords do not match.";
+      messageEl.style.color = "red";
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, password: newPassword }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        messageEl.style.color = "#a8ff60";
+        messageEl.textContent = "Password reset successful! Redirecting to login...";
+        setTimeout(() => window.location.href = "signupLogin.html", 2000);
+      } else {
+        messageEl.style.color = "red";
+        messageEl.textContent = result.message || "Something went wrong.";
+      }
+    } catch (error) {
+      console.error(error);
+      messageEl.style.color = "red";
+      messageEl.textContent = "Server error. Try again later.";
+    }
+  });
+</script>
+
+</body>
+</html>
