@@ -34,37 +34,47 @@ exports.getProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
   try {
-    const updates = req.body;
+    const updates = {};
+
+    // ✅ Handle text fields safely (req.body might come from FormData)
+    if (req.body.name) updates.name = req.body.name;
+    if (req.body.email) updates.email = req.body.email;
+    if (req.body.mobile) updates.mobile = req.body.mobile;
 
     // ✅ Handle uploaded image
     if (req.file) {
       updates.image = `/uploads/profile/${req.file.filename}`;
     }
 
-    delete updates.password; // never allow password change here
+    // never allow password change here
+    delete updates.password;
 
-    const user = await User.findByIdAndUpdate(req.user.sub, updates, { new: true }).select('-password');
-    if (!user) return res.status(404).json({ message: 'User not found' });
+    // ✅ Update user in DB
+    const user = await User.findByIdAndUpdate(req.user.sub, updates, {
+      new: true,
+    }).select("-password");
 
-    // ✅ Resolve image URL (Google or local)
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // ✅ Build final image URL
     let imageUrl;
-    if (user.image && user.image.startsWith('http')) {
+    if (user.image && user.image.startsWith("http")) {
       imageUrl = user.image;
     } else if (user.image) {
-      imageUrl = `${req.protocol}://${req.get('host')}${user.image}`;
+      imageUrl = `${req.protocol}://${req.get("host")}${user.image}`;
     } else {
-      imageUrl = `${req.protocol}://${req.get('host')}/uploads/profile/default.jpg`;
+      imageUrl = `${req.protocol}://${req.get("host")}/uploads/profile/default.jpg`;
     }
 
     res.json({
-      message: 'Profile updated',
+      message: "Profile updated successfully",
       user: {
         ...user.toObject(),
-        image: imageUrl
-      }
+        image: imageUrl,
+      },
     });
   } catch (err) {
-    logger.error('updateProfile error', { error: err });
-    res.status(500).json({ message: 'Server error' });
+    logger.error("updateProfile error", { error: err });
+    res.status(500).json({ message: "Server error" });
   }
 };

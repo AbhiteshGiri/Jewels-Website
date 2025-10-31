@@ -101,17 +101,78 @@
         font-weight: 500;
         text-align: center;
       }
+
+      .profile-pic-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+      }
+
+      .profile-pic {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 3px solid #d4af37;
+        object-fit: cover;
+        transition: 0.3s ease;
+        cursor: pointer;
+      }
+
+      .edit-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+        z-index: 5; /* ✅ ensures overlay is above the image */
+        pointer-events: all; /* ✅ ensures overlay can receive clicks */
+      }
+
+      .profile-pic-wrapper:hover .edit-overlay {
+        opacity: 1;
+      }
+
+      .edit-overlay i {
+        color: #d4af37;
+        font-size: 1.5em;
+        pointer-events: none; /* ✅ prevents icon itself from blocking the click */
+      }
     </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body>
     <div class="profile-container">
       <div class="profile-header">My Profile</div>
-      <img
-        id="profilePic"
-        class="profile-pic"
-        src="http://localhost:5000/uploads/profile/default.jpg"
-        alt="Profile Picture"
-      />
+      <div class="profile-pic-wrapper">
+        <img
+          id="profilePic"
+          class="profile-pic"
+          src="http://localhost:5000/uploads/profile/default.jpg"
+          alt="Profile Picture"
+        />
+        <div class="edit-overlay" id="editOverlay">
+          <i class="fa fa-pencil" id="editIcon"></i>
+        </div>
+        <input
+          type="file"
+          id="profileImageInput"
+          accept="image/*"
+          style="display: none"
+        />
+      </div>
 
       <form id="profileForm">
         <div class="profile-info">
@@ -147,13 +208,13 @@
       </form>
     </div>
     <script>
-  const token = localStorage.getItem("token"); // assuming you store JWT token here
-  const API_BASE_URL = "http://localhost:5000/api"; // change to your live or devtunnel URL
+  const token = localStorage.getItem("token");
+  const API_BASE_URL = "http://localhost:5000/api";
 
   const profileForm = document.getElementById("profileForm");
   const messageEl = document.getElementById("message");
 
-  // Load profile data when page loads
+  // ✅ Load Profile Data
   async function loadProfile() {
     try {
       const res = await fetch(`${API_BASE_URL}/user/profile`, {
@@ -168,31 +229,16 @@
         document.getElementById("userEmail").value = data.user.email || "";
         document.getElementById("userMobile").value = data.user.mobile || "";
 
-        // ✅ Dynamically set profile picture
         const profilePic = document.getElementById("profilePic");
-        if (data.user.image) {
-          const imgUrl = data.user.image.trim(); // 🔧 ensure no accidental spaces
+        const imgUrl = data.user.image?.trim() || "";
 
-          if (imgUrl.startsWith("https://lh3.googleusercontent.com/")) {
-            // Google image (works fine)
-            profilePic.src = imgUrl.replace("=s96-c", "=s400-c");
-          } 
-          // 🔧 Fix: if it's already a full URL (e.g., http://localhost:5000/uploads/...)
-          else if (imgUrl.startsWith("http://") || imgUrl.startsWith("https://")) {
-            profilePic.src = imgUrl;
-          }
-          else if (imgUrl.startsWith("/uploads/")) {
-            // Image path already includes /uploads/
-            profilePic.src = `${API_BASE_URL.replace("/api", "")}${imgUrl}`;
-          } else {
-            // Fallback in case database only stores filename
-            profilePic.src = `${API_BASE_URL.replace(
-              "/api",
-              ""
-            )}/uploads/profile/${imgUrl}`;
-          }
+        if (imgUrl.startsWith("https://lh3.googleusercontent.com/")) {
+          profilePic.src = imgUrl.replace("=s96-c", "=s400-c");
+        } else if (imgUrl.startsWith("http")) {
+          profilePic.src = imgUrl;
+        } else if (imgUrl.startsWith("/uploads/")) {
+          profilePic.src = `${API_BASE_URL.replace("/api", "")}${imgUrl}`;
         } else {
-          // Default avatar
           profilePic.src = "../uploads/profile/default.jpg";
         }
       } else {
@@ -206,7 +252,7 @@
     }
   }
 
-  // Update profile handler
+  // ✅ Handle Text Updates (Name, Email, Mobile)
   profileForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     const updates = {
@@ -226,10 +272,10 @@
       });
 
       const data = await res.json();
-
       if (res.ok) {
         messageEl.textContent = "Profile updated successfully!";
         messageEl.style.color = "#a8ff60";
+        loadProfile();
       } else {
         messageEl.textContent = data.message || "Update failed";
         messageEl.style.color = "#ff6666";
@@ -241,9 +287,62 @@
     }
   });
 
+  // ✅ Handle Image Upload + Preview
+  document.addEventListener("DOMContentLoaded", () => {
+    const editOverlay = document.getElementById("editOverlay");
+    const profileImageInput = document.getElementById("profileImageInput");
+    const profilePic = document.getElementById("profilePic");
+
+    // open file dialog on click
+    editOverlay.addEventListener("click", () => {
+      profileImageInput.click();
+    });
+
+    // preview + upload image
+    profileImageInput.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      // preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        profilePic.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+
+      // upload image via same endpoint (PUT /user/profile)
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/user/profile`, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          messageEl.textContent = "Profile picture updated successfully!";
+          messageEl.style.color = "#a8ff60";
+        } else {
+          messageEl.textContent = data.message || "Failed to upload image";
+          messageEl.style.color = "#ff6666";
+        }
+      } catch (err) {
+        console.error("Image Upload Error:", err);
+        messageEl.textContent = "Error uploading image";
+        messageEl.style.color = "#ff6666";
+      }
+    });
+  });
+
   // Initialize
   loadProfile();
 </script>
 
+    
   </body>
 </html>
